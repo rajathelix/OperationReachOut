@@ -1,0 +1,51 @@
+
+<toast></toast>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <form name="myForm" ng-submit="submit()">
+                <h2 class="red">Create an account</h2>
+                <hr/>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-2 col-md-2">
+                            <label class="blue s16 padtop5">Email Id:</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-10 col-md-10">
+                            <input name="el" id="Email" type="email" ng-model="newUser.email" class="form-control input-md" placeholder=" Enter Email Address" tabindex="1" required oninput="check(this)">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-2 col-md-2">
+                            <label class="blue s16 padtop5">Mobile No.:</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-10 col-md-10">
+                            <input name="mn" id="MobileNo" type="number"  ng-model="newUser.mobileno" ng-minlength="10" ng-maxlength="10" ng-pattern="/^\d{10}$/" class="form-control input-md" placeholder="Enter Active Mobile Number" tabindex="2" required oninput="check(this)">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div ng-show="two" ng-include="'templates/s2.html'"></div>
+                <div ng-show="one" class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-8">
+                                <div class="form-group  s16">
+                                    <a href="#/login">
+                                        Already Registered? Sign In to Account
+                                    </a>
+                                </div>
+                            </div>
+                    <div class="col-xs-12 col-md-4">
+                        <button ng-disabled="myForm.el.$dirty && myForm.el.$invalid ||  
+                        myForm.mn.$dirty && myForm.mn.$invalid" type="submit" ng-click="myFunc()" id="Submit" class="btn btn-primary btn-block btn-md" tabindex="10" >
+                            Next
+                        </button>
+                    </div>
+                
+            </form>
+                </div>
+        </div>
+    </div>

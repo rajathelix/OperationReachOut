@@ -1,0 +1,102 @@
+
+    <div class="row">
+                <br>
+                <hr/>
+                <h4>Please, fill in the other necessary details below</h4>
+                <hr/>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-2 col-md-2">
+                            <label class="blue s16 padtop5">First Name:</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-10 col-md-10">
+                            <input id="Fname" type="text" ng-model="newUser.fname" class="form-control input-md" placeholder=" Enter First Name" tabindex="3" required >
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-2 col-md-2">
+                            <label class="blue s16 padtop5">Last Name:</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-10 col-md-10">
+                            <input id="Lname" type="text" ng-model="newUser.lname" class="form-control input-md" placeholder=" Enter Last Name" tabindex="4" required >
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-2 col-md-4">
+                                <label class="blue s16">Account Type:</label>
+                            </div> 
+                            <div class="col-xs-12 col-sm-10 col-md-4">
+                                <input type="radio" name="act" required>&nbsp; Vulnerable
+                            </div>
+                            <div class="col-xs-12 col-sm-10 col-md-4">
+                                <input  type="radio" name="act">&nbsp; Counsellor
+                            </div>
+                        </div>
+                    </div>
+                <br>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-2 col-md-2">
+                            <label class="blue s16 padtop5">Age:</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-10 col-md-2">
+                            <input id="Age" type="number" ng-model="newUser.age" class="form-control input-md" placeholder="12-30" max="30" min="12" tabindex="5" required oninput="check(this)">
+                        </div>
+                        <div class="col-xs-12 col-sm-10 col-md-2">
+                            <label class="blue s16 padtop5">Gender:</label>
+                        </div>  
+                        <div class="col-xs-12 col-sm-10 col-md-2">
+                            <input class="padtop5" type="radio" name="optradio" required>&nbsp; Male
+                        </div>
+                        <div class="col-xs-12 col-sm-10 col-md-2">
+                            <input class="padtop5" type="radio" name="optradio">&nbsp; Female
+                        </div>
+                        <div class="col-xs-12 col-sm-10 col-md-2">
+                            <input class="padtop5" type="radio" name="optradio">&nbsp; Others
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-2 col-md-2">
+                            <label class="blue s16 padtop5">Address:</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-10 col-md-10">
+                            <input id="Address" type="text" ng-model="newUser.address" class="form-control input-md" placeholder="Enter Your Address" tabindex="6">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row"> 
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-2 col-md-2">
+                            <label class="blue s16 padtop10">Password:</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-10 col-md-10">
+                            <input id="Pasregister" type="password" ng-model="newUser.password" class="form-control input-md" placeholder="" tabindex="8" required >
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-8">
+                                <div class="form-group  s16">
+                                    
+                                </div>
+                            </div>
+                    <div class="col-xs-12 col-md-4">
+                        <button type="submit" ng-click="signup()" class="btn btn-primary btn-block btn-md" tabindex="7">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+            </form>
+   

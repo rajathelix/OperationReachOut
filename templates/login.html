@@ -1,0 +1,47 @@
+<toast></toast>
+<div class="row">
+    <div class="col-xs-10 col-sm-6 col-md-4 col-xs-offset-1 col-sm-offset-3 col-md-offset-4">
+        <form>
+            <h2 class="red">Log in</h2>
+            <hr/>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-2 col-md-2">
+                        <label class="blue s16 padtop10">Email:</label>
+                    </div>
+                    <div class="col-xs-12 col-sm-10 col-md-10">
+                        <input id="email" type="email" ng-model="user.email" class="form-control input-md" placeholder="" tabindex="1" required oninput="check(this)" >
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-2 col-md-2">
+                        <label class="blue s16 padtop10">Password:</label>
+                    </div>
+                    <div class="col-xs-12 col-sm-10 col-md-10">
+                        <input id="paslogin" type="password" ng-model="user.password" class="form-control input-md" placeholder="" tabindex="2" required >
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8">
+                    <div class="form-group s16">
+                        <a href="#/signup">
+                            Not Registered? Create an Account
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="form-group">
+                        <button type="submit" ng-click="login()" class="btn btn-primary btn-block btn-md" tabindex="6">
+                            Login
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+                   
