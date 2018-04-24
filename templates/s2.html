@@ -29,13 +29,13 @@
                 <div class="row">
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-2 col-md-4">
-                                <label class="blue s16">Account Type:</label>
+                                <label  class="blue s16">Account Type:</label>
                             </div> 
                             <div class="col-xs-12 col-sm-10 col-md-4">
-                                <input type="radio" name="act" required>&nbsp; Vulnerable
+                                <input type="radio" name="act" ng-model="newUser.actype" value="v" required >&nbsp; Vulnerable
                             </div>
                             <div class="col-xs-12 col-sm-10 col-md-4">
-                                <input  type="radio" name="act">&nbsp; Counsellor
+                                <input  type="radio" name="act" ng-model="newUser.actype" value="c" >&nbsp; Counsellor
                             </div>
                         </div>
                     </div>
@@ -52,13 +52,13 @@
                             <label class="blue s16 padtop5">Gender:</label>
                         </div>  
                         <div class="col-xs-12 col-sm-10 col-md-2">
-                            <input class="padtop5" type="radio" name="optradio" required>&nbsp; Male
+                            <input class="padtop5" type="radio" name="optradio" ng-model="newUser.gender" value="m" required>&nbsp; Male
                         </div>
                         <div class="col-xs-12 col-sm-10 col-md-2">
-                            <input class="padtop5" type="radio" name="optradio">&nbsp; Female
+                            <input class="padtop5" type="radio" name="optradio" ng-model="newUser.gender" value="f" >&nbsp; Female
                         </div>
                         <div class="col-xs-12 col-sm-10 col-md-2">
-                            <input class="padtop5" type="radio" name="optradio">&nbsp; Others
+                            <input class="padtop5" type="radio" name="optradio" ng-model="newUser.gender" value="o" >&nbsp; Others
                         </div>
                     </div>
                 </div>
@@ -96,6 +96,7 @@
                             Submit
                         </button>
                     </div>
+                    {{statusMsg}}
                 </div>
             </div>
             </form>

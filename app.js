@@ -53,10 +53,11 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout){
     }
 });
 
-app.controller('SignUpCtrl', function($scope) {
+app.controller('SignUpCtrl', function($scope, $http) {
     //$scope.umobileno = 1000000000;
     //$scope.uemail = 'example@domain.com';
     //$scope.name='world';
+    $scope.statusMsg = '';
     $scope.newUser = {
         email: 'example@domain.com',
         mobileno: 1000000000
@@ -64,12 +65,14 @@ app.controller('SignUpCtrl', function($scope) {
     $scope.two = false;
     $scope.one = true;
     $scope.myFunc = function() {
+        console.log("entries are valid");
         $scope.two = true;
         $scope.one = false;
     };
     $scope.submit = function()
 	{
-        alert("hello");
+        $scope.statusMsg = 'Sending data to server...';
+        console.log($scope.newUser);
     };
 });
 
