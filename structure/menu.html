@@ -1,4 +1,4 @@
-<div class="nav navbar-default">
+<div class="nav navbar-inverse">
     <div class="container-fluid ">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header ">
@@ -15,18 +15,14 @@
                       <li ui-sref-active="active"><a ui-sref="home">Home <span class="sr-only">(current)</span></a></li>
                       <li ui-sref-active="active" ng-if="!loggedIn"><a ui-sref="login">Login</a></li>
                       <li ui-sref-active="active" ng-if="!loggedIn"><a ui-sref="signup">Registration</a></li>
-                      <li class="dropdown" ng-if="loggedIn">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blogs <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                          <li><a ui-sref="quiz">Quiz</a></li>
-                          <li><a ui-sref="chat">Chat</a></li>
-                          <li><a href="activity">Activity</a></li>
-                        </ul>
-                      </li>
+                      <li ui-sref-active="active" ng-if="loggedIn"><a ui-sref="quiz">Quiz</a></li>
+                      <li ui-sref-active="active" ng-if="loggedIn"><a ui-sref="chat">Chat</a></li>
+                      <li ui-sref-active="active" ng-if="loggedIn"><a ui-sref="notification">Notification</a></li>
+                      <li ui-sref-active="active" ng-if="loggedIn"><a ui-sref="acti">Activities</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" ng-if="loggedIn">
                       <li class="dropdown" ng-if="loggedIn">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button">{{displayName}<span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button">{{displayName}}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                           <li><a ui-sref="home" ng-click="logout()">Logout</a></li>
                         </ul>

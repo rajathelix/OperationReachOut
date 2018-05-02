@@ -13,6 +13,9 @@
 .s16{
     font-size: 16px;
 }
+.s18{
+    font-size: 18px;
+}
 .padtop10{
     padding-top: 10%;
 }
@@ -21,4 +24,11 @@
 }
 .btn{
     background-color: #2eb82e;
+}
+.pad{
+    padding-top: 150px;
+}
+.mess{
+    font-size: 24px;
+    text-align: center;
 }

@@ -1,7 +1,14 @@
 
 <toast></toast>
-
-    <div class="row">
+<!-- instructions
+    <div ng-show="y">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <h2 class="red">Create an account</h2>
+        <hr/>
+    </div>
+</div>-->
+<div>
+    <div ng-show="a" class="row">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
             <form name="myForm" ng-submit="submit()">
                 <h2 class="red">Create an account</h2>
@@ -49,3 +56,28 @@
                 </div>
         </div>
     </div>
+    <div ng-show="b" class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <div class="pad"></div>
+        <div class="row">
+            <div class="col-sm-1 col-md-2"></div>
+            <div class="col-xs-12 col-sm-10 col-md-8 mess blue">
+                Registration Successful.
+                <br>
+                Now Procced to <a class="red" href="#/login">Login</a>.
+            </div>
+            <div class="col-sm-1 col-md-2"></div>
+        </div>
+    </div>
+    <div ng-show="c" class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <div class="pad"></div>
+        <div class="row">
+            <div class="col-sm-1 col-md-2"></div>
+            <div class="col-xs-12 col-sm-10 col-md-8 mess blue">
+                Registration Failed. 
+                <br>
+                Please try to <a class="red" href="#/signup" >Register</a> again.
+            </div>
+            <div class="col-sm-1 col-md-2"></div>
+        </div>
+    </div>
+</div>

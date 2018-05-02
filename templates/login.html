@@ -1,9 +1,16 @@
 <toast></toast>
+
 <div class="row">
     <div class="col-xs-10 col-sm-6 col-md-4 col-xs-offset-1 col-sm-offset-3 col-md-offset-4">
-        <form>
+        <form name="loginF" ng-submit="login()">
             <h2 class="red">Log in</h2>
             <hr/>
+            <div ng-show="p" class="red">
+                {{notific}}
+            </div>
+            <div ng-show="q" >
+                <hr/>
+            </div>
             <div class="row">
                 <div class="form-group">
                     <div class="col-xs-12 col-sm-2 col-md-2">
@@ -35,7 +42,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="form-group">
-                        <button type="submit" ng-click="login()" class="btn btn-primary btn-block btn-md" tabindex="6">
+                        <button type="submit" class="btn btn-primary btn-block btn-md" tabindex="6">
                             Login
                         </button>
                     </div>

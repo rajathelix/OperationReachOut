@@ -80,23 +80,23 @@
                             <label class="blue s16 padtop10">Password:</label>
                         </div>
                         <div class="col-xs-12 col-sm-10 col-md-10">
-                            <input id="Pasregister" type="password" ng-model="newUser.password" class="form-control input-md" placeholder="" tabindex="8" required >
+                            <input name="pwd" id="Pasregister" type="password" ng-minlength="6" ng-model="newUser.password" class="form-control input-md" placeholder="" tabindex="8" required >
                         </div>
                     </div>
                 </div>
                 <br>
                 <div class="row">
                         <div class="col-xs-12 col-sm-8 col-md-8">
-                                <div class="form-group  s16">
-                                    
+                                <div class="form-group  s18 padtop5 blue">
+                                    {{statusMsg}}
                                 </div>
                             </div>
                     <div class="col-xs-12 col-md-4">
-                        <button type="submit" ng-click="signup()" class="btn btn-primary btn-block btn-md" tabindex="7">
+                        <button ng-disabled="myForm.pwd.$invalid && myForm.pwd.$dirty" type="submit" class="btn btn-primary btn-block btn-md" tabindex="7">
                             Submit
                         </button>
                     </div>
-                    {{statusMsg}}
+                   
                 </div>
             </div>
             </form>
