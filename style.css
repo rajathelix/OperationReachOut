@@ -16,6 +16,12 @@
 .s18{
     font-size: 18px;
 }
+.s24{
+    font-size: 24px;
+}
+.s28{
+    font-size: 28px;
+}
 .padtop10{
     padding-top: 10%;
 }
@@ -31,4 +37,41 @@
 .mess{
     font-size: 24px;
     text-align: center;
+}
+.qhead{
+    text-align: center;
+    margin: 5px;
+    border-style: double;
+    border-width: 5px;
+    border-color: grey;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #f2f2f2;
+}
+.qbody{
+    text-align: left;
+    margin: 25px;
+}
+.qop{
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+.ins{
+    text-align: center;
+    border-style: double;
+    border-width: 5px;
+    border-color: grey;
+    margin-top: 3px;
+    padding: 0px;
+}
+.quizpage{
+    text-align: center;
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.phead{
+    border-style: double;
+    border-width: 5px;
+    border-color: grey;
 }

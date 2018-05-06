@@ -1,0 +1,48 @@
+<div class="qhead">
+    <h1 class="red">PSYCHOMETRIC EVALUATION TEST</h1>
+</div>
+<br>
+<div class="qbody">
+    <hr/>
+    <div class="s28 well">
+        Question &nbsp; {{qn}})
+        <br>
+        &nbsp; &nbsp; &nbsp;{{question}}
+    </div>
+    <hr/>
+    <br>
+    <div class="s24">
+        <form name="qForm" ng-submit="next(ans)" >
+            <div class="well">
+            <div class="qop">
+                &nbsp; &nbsp; &nbsp;A) &nbsp; <input class="padtop5" type="radio" name="anschoice" ng-model="ans" value="a" required>&nbsp; Strongly Agree
+            </div>
+            <div class="qop">
+                &nbsp; &nbsp; &nbsp;B) &nbsp; <input class="padtop5" type="radio" name="anschoice" ng-model="ans" value="b" >&nbsp; Agree
+            </div>
+            <div class="qop">
+                &nbsp; &nbsp; &nbsp;C) &nbsp; <input class="padtop5" type="radio" name="anschoice" ng-model="ans" value="c" >&nbsp; May Be
+            </div>
+            <div class="qop">
+                &nbsp; &nbsp; &nbsp;D) &nbsp; <input class="padtop5" type="radio" name="anschoice" ng-model="ans" value="d" >&nbsp; Disagree
+            </div>
+            <div class="qop">
+                &nbsp; &nbsp; &nbsp;E) &nbsp; <input class="padtop5" type="radio" name="anschoice" ng-model="ans" value="e" >&nbsp; Strongly Disagree
+            </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-8 col-sm-10 col-md-10"></div>
+                <div class="col-xs-4 col-sm-2 col-md-2">
+                    <button ng-disabled="tmt" type="submit" id="next" value="Submit" class="btn btn-primary btn-block btn-md">
+                        {{buttonname}}
+                    </button>
+                </div>
+            </div>
+            
+            <!--<button  type="submit" class="btn btn-primary btn-block btn-md" tabindex="7">
+                Submit
+            </button>-->
+        </form>
+    </div>
+</div>

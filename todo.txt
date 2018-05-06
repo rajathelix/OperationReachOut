@@ -5,7 +5,9 @@
   1.1 preparing question pages - complete
   1.2 preparing calculation strategy - complete
   1.3 ui
-  1.4 functions 
+  1.4 functions - complete
+  1.5 database connection - complete
+  1.6 close - complete
 3. chat
   1.1 ui
   1.2 functions
@@ -23,15 +25,18 @@
   1.3 validations - complete
   1.4 database connection - complete
   1.5 close - complete
+  1.6 next button email and number check - incomplete
 6. nearby activity
   1.1 ui
   1.2 functions
   1.3 close
 7. home
   1.1 ui - complete
-  1.2 functions
-  1.3 close
+  1.2 functions - complete
+  1.3 close - 
 8. notification
   1.1 ui
   1.2 functions
   1.3 close
+9. navigation between pages - complete
+10. required dependency install and link - complete

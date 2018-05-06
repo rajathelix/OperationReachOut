@@ -88,7 +88,7 @@ app.post('/loginuser', function(req, res, next){
     if(results.length >0){
       if(results[0].password == password){
         console.log('The solution is: ', results);
-        return res.send('Ok'+' '+results[0].fname);
+        return res.send('Ok'+' '+results[0].actype+' '+results[0].fname+' '+results[0].email+' '+results[0].mobileno);
       }
       else{
         console.log("wrong pasword");
@@ -102,7 +102,37 @@ app.post('/loginuser', function(req, res, next){
   }
   });
 });
-
+app.post('/registercheck', function(req, res, next){
+  var e= req.body.email;
+  var mb = req.body.mobileno;
+  console.log('Checking email and phone for new Registration', req.body);
+  var q = connection.query('SELECT * FROM users WHERE email = ?',[e], function (err, results, fields) {
+    if(err){
+      console.error(err);
+      return res.send(err);
+    }
+    else {
+      if(results.length >0){
+        return res.send('DE');
+        
+      }
+      else {
+        return res.send('Ok'); 
+      }
+    }
+  });
+  console.log(q);
+});
+app.get('/getques', function(req, res, next){
+  connection.query("SELECT * from ques",function(err, results, fields){
+    if(err){
+      return res.send(err);
+    }
+    else {
+      return res.send(results);
+    }
+  });
+});
 app.listen(8080);
 /*var router = express.Router();
 

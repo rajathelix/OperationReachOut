@@ -13,13 +13,14 @@
             <form name="myForm" ng-submit="submit()">
                 <h2 class="red">Create an account</h2>
                 <hr/>
+                <div ng-show="three" class="red">{{noti}}</div>
                 <div class="row">
                     <div class="form-group">
                         <div class="col-xs-12 col-sm-2 col-md-2">
                             <label class="blue s16 padtop5">Email Id:</label>
                         </div>
                         <div class="col-xs-12 col-sm-10 col-md-10">
-                            <input name="el" id="Email" type="email" ng-model="newUser.email" class="form-control input-md" placeholder=" Enter Email Address" tabindex="1" required oninput="check(this)">
+                            <input name="el" id="Email" type="email" ng-model="newUser.email" class="form-control input-md" placeholder=" Enter Email Address" tabindex="1" ng-disabled="inactive" required oninput="check(this)">
                         </div>
                     </div>
                 </div>
@@ -31,7 +32,7 @@
                             <label class="blue s16 padtop5">Mobile No.:</label>
                         </div>
                         <div class="col-xs-12 col-sm-10 col-md-10">
-                            <input name="mn" id="MobileNo" type="number"  ng-model="newUser.mobileno" ng-minlength="10" ng-maxlength="10" ng-pattern="/^\d{10}$/" class="form-control input-md" placeholder="Enter Active Mobile Number" tabindex="2" required oninput="check(this)">
+                            <input name="mn" id="MobileNo" type="number"  ng-model="newUser.mobileno" ng-minlength="10" ng-maxlength="10" ng-pattern="/^\d{10}$/" class="form-control input-md" placeholder="Enter Active Mobile Number" tabindex="2" ng-disabled="inactive" required oninput="check(this)">
                         </div>
                     </div>
                 </div>
