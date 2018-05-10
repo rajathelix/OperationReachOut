@@ -16,6 +16,9 @@
 .s18{
     font-size: 18px;
 }
+.s20{
+    font-size: 20px;
+}
 .s24{
     font-size: 24px;
 }
@@ -78,5 +81,8 @@
     text-align: center;
 }
 .ht{
-    height: 400px;
+    height: 420px;
+}
+.well{
+    background-color: lightcyan;
 }

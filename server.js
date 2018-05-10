@@ -63,9 +63,9 @@ if(!err) {
 }
 });
 app.post('/register', function(req, res, next) {
-  var cope = req.body;
+  var cope_obj = req.body;
   console.log('Registration request received:', req.body);
- var query = connection.query('insert into users set ?', cope, function (err,     result) {
+ var query = connection.query('insert into users set ?', cope_obj, function (err,     result) {
   if (err) {
       console.error(err);
       return res.send(err);
@@ -77,16 +77,16 @@ app.post('/register', function(req, res, next) {
   //res.send('received the data.');
 });
 app.post('/loginuser', function(req, res, next){
-  var email= req.body.email;
-  var password = req.body.password;
+  var email_str= req.body.email;
+  var password_str = req.body.password;
   console.log('Login request received:', req.body);
-  connection.query('SELECT * FROM users WHERE email = ?',[email], function (err, results, fields) {
+  connection.query('SELECT * FROM users WHERE email = ?',[email_str], function (err, results, fields) {
   if (err) {
     console.log("error ocurred",err);
     return res.send(err);
   }else{
     if(results.length >0){
-      if(results[0].password == password){
+      if(results[0].password == password_str){
         console.log('The solution is: ', results);
         return res.send(results[0]);
         //return res.send('Ok'+' '+results[0].actype+' '+results[0].fname+' '+results[0].email+' '+results[0].mobileno);
@@ -105,17 +105,17 @@ app.post('/loginuser', function(req, res, next){
 });
 
 app.post('/registercheck', function(req, res, next){
-  var email= req.body.email;
-  var mb = req.body.mobileno;
+  var email_str= req.body.email;
+  var mb_number = req.body.mobileno;
   console.log('Checking email and phone for new Registration', req.body);
-  var a = connection.query('SELECT * FROM users WHERE email = ?',[email], function (err, results, fields) {
+  var a = connection.query('SELECT * FROM users WHERE email = ?',[email_str], function (err, results, fields) {
     if(err){
       console.error('err1');
       return res.send(err);
     }
     else {
       if(results.length >0){
-        var b = connection.query('SELECT * FROM users WHERE mobileno = ?',[mb], function (err, results, fields) {
+        var b = connection.query('SELECT * FROM users WHERE mobileno = ?',[mb_number], function (err, results, fields) {
           if(err){
             console.error('err2');
             return res.send(err);
@@ -131,7 +131,7 @@ app.post('/registercheck', function(req, res, next){
         });
       }
       else {
-        var c = connection.query('SELECT * FROM users WHERE mobileno = ?',[mb], function (err, results, fields) {
+        var c = connection.query('SELECT * FROM users WHERE mobileno = ?',[mb_number], function (err, results, fields) {
           if(err){
             console.error('err3');
             return res.send(err);
@@ -161,8 +161,8 @@ app.get('/getques', function(req, res, next){
 });
 app.post('/quizcheck', function(req, res, next){
   console.log("quiz home current status");
-  var e = req.body.email;
-  connection.query('SELECT * FROM tquiz WHERE email = ?',[e], function (err, results, fields) {
+  var e_str = req.body.email;
+  connection.query('SELECT * FROM tquiz WHERE email = ?',[e_str], function (err, results, fields) {
     if (err) {
       console.log("error ocurred",err);
       return res.send(err);
@@ -180,30 +180,30 @@ app.post('/quizcheck', function(req, res, next){
 });
 app.post('/qr', function(req, res, next){
   console.log("quiz update status");
-  var e = req.body.email;
-  var r = req.body.result;
-  if(r == "nd"){
+  var e_str = req.body.email;
+  var r_str = req.body.result;
+  if(r_str == "nd"){
     req.body.s1 = "No Depression.";
     req.body.s2 = "You do not need any treatment.";
   }
-  else if(r == "md"){
+  else if(r_str == "md"){
     req.body.s1 = "Moderate Depression.";
     req.body.s2 = "You can consult Counsellor to make sure you are fine.";
   }
-  else if(r == "sd"){
+  else if(r_str == "sd"){
     req.body.s1 = "Severe Depression.";
     req.body.s2 = "You must immediately consult a Counsellor and take part in activity.";
   }
-  var cope = req.body;
-  var a = req.body.s1;
-  var b = req.body.s2;
-  connection.query('SELECT * FROM tquiz WHERE email = ?',[e], function (err, results, fields) {
+  var cope_obj = req.body;
+  var a_str = req.body.s1;
+  var b_str = req.body.s2;
+  connection.query('SELECT * FROM tquiz WHERE email = ?',[e_str], function (err, results, fields) {
     if (err) {
       console.log("error ocurred",err);
       return res.send(err);
     }else{
       if(results.length >0){
-          connection.query('UPDATE tquiz set result = ?, s1 = ?, s2 = ? where email = ? ',[r,a,b,e], function (err,results) {
+          connection.query('UPDATE tquiz set result = ?, s1 = ?, s2 = ? where email = ? ',[r_str,a_str,b_str,e_str], function (err,results) {
           if (err) {
             console.error('err1');
             return res.send(err);
@@ -215,7 +215,7 @@ app.post('/qr', function(req, res, next){
         return res.send('update');*/
       }
       else{
-        connection.query('insert into tquiz set ?', cope, function (err, result) {
+        connection.query('insert into tquiz set ?', cope_obj, function (err, result) {
           if (err) {
             console.error('err2');
             return res.send(err);
@@ -240,17 +240,4 @@ router.post('/register',login.register);
 router.post('/login',login.login)
 app.use('/api', router);
 app.listen(5000);
-
-            else if(httpResponse.data.result == "md"){
-                $scope.s1 = "Moderate Depression.";
-                $scope.s2 = "You can consult Counsellor to make sure you are fine.";
-                $scope.s3 = true;
-                $rootScope.qw= true;
-            }
-            else if(httpResponse.data.result == "sd"){
-                $scope.s1 = "Severe Depression";
-                $scope.s2 = "You must immediately consult a Counsellor and take part in activity.";
-                $scope.s3 = true;
-                $rootScope.qw= true;
-            }
 */

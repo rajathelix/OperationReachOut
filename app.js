@@ -2,7 +2,9 @@ var app = angular.module('myApp', ['ui.router','ngToast', 'textAngular']);
 app.run(function($rootScope,$state){
     $rootScope.fq = true;
     $rootScope.qw = true;
-    var objUd= null;
+    $rootScope.k = false;
+    $rootScope.loggedIn == false;
+    var ud_obj= null;
     
     //$state.go('home');
 });
@@ -55,11 +57,11 @@ app.controller('HomeCtrl', function($scope,$rootScope, $http){
         $http({
             url: 'http://localhost:8080/quizcheck',
             method: 'POST',
-            data : objUd
+            data : ud_obj
         }).then(function(httpResponse){
             console.log("current status load");
             if(httpResponse.data == "no"){
-                $rootScope.qw= true;
+                $rootScope.qw= false;
             }
             else{
                 if(httpResponse.data.result == "nd"){
@@ -80,7 +82,6 @@ app.controller('HomeCtrl', function($scope,$rootScope, $http){
 
 app.controller('ChatCtrl', function($scope, $http){
     console.log('entered Chat page');
-    var email = 'hello';
     $http({
         url: 'http://localhost:8080/logi',
         method: 'GET',
@@ -91,46 +92,67 @@ app.controller('ChatCtrl', function($scope, $http){
 
 app.controller('QuizCtrl', function($scope, $http, $rootScope, $timeout,$location){
     console.log('entered quiz page');
-    $scope.inst = false;
-    $scope.qf = false;
-    $scope.qh = true;
-    $scope.suc = false;
-    $scope.fai= false;
-    $scope.s4 = false;
-    $scope.s3 = false;
-    var count = 0;
-    var sum = 0;
-    var answ;
-    $http({
-        url: 'http://localhost:8080/quizcheck',
-        method: 'POST',
-        data : objUd
-    }).then(function(httpResponse){
-        console.log("current status load");
-        if(httpResponse.data == "no"){
-            $scope.custs = "Quiz not attempted yet.";
+    if($rootScope.loggedIn == true){
+        if(ud_obj.actype == "v"){
+            $scope.inst = false;
+            $scope.qf = false;
+            $scope.qh = true;
+            $scope.suc = false;
+            $scope.fai= false;
+            $scope.s4 = false;
+            $scope.s3 = false;
+            $scope.s5 = false;
+            $http({
+                url: 'http://localhost:8080/quizcheck',
+                method: 'POST',
+                data : ud_obj
+            }).then(function(httpResponse){
+                console.log("current status load");
+                if(httpResponse.data == "no"){
+                    $scope.custs = "Quiz not attempted yet.";
+                    $scope.s5 = true;
+                }
+                else{
+                    $scope.custs = "Last Quiz Results.";
+                    $scope.s1 = httpResponse.data.s1;
+                    $scope.s2 = httpResponse.data.s2;
+                    if(httpResponse.data.result == "nd"){
+                        $scope.s3 = false;
+                        $scope.s4 = true;
+                        $rootScope.qw= false;
+                    }
+                    else if(httpResponse.data.result == "md"){
+                        $scope.s3 = true;
+                        $scope.s4 = false;
+                        $rootScope.qw= true;
+                    }
+                    else if(httpResponse.data.result == "sd"){
+                        $scope.s3 = true;
+                        $rootScope.qw= true;
+                        $scope.s4 = false;
+                    }
+                }
+            });
         }
         else{
-            $scope.custs = "Last Quiz Results.";
-            $scope.s1 = httpResponse.data.s1;
-            $scope.s2 = httpResponse.data.s2;
-            if(httpResponse.data.result == "nd"){
-                $scope.s3 = false;
-                $scope.s4 = true;
-                $rootScope.qw= false;
-            }
-            else if(httpResponse.data.result == "md"){
-                $scope.s3 = true;
-                $scope.s4 = false;
-                $rootScope.qw= true;
-            }
-            else if(httpResponse.data.result == "sd"){
-                $scope.s3 = true;
-                $rootScope.qw= true;
-                $scope.s4 = false;
-            }
+            $scope.inst = false;
+            $scope.qf = false;
+            $scope.qh = false;
+            $scope.suc = false;
+            $scope.fai= false;
         }
-    });
+
+    }
+    else {
+        $scope.inst = false;
+        $scope.qf = false;
+        $scope.qh = false;
+        $scope.suc = false;
+        $scope.fai= false;
+    }
+    var count_num = 0;
+    var sum_num = 0;
+    var answ;
     $scope.startQ = function(){
         $timeout(function(){
             $scope.inst = true;
@@ -157,49 +179,49 @@ app.controller('QuizCtrl', function($scope, $http, $rootScope, $timeout,$locatio
     },800);
     };
     $scope.next = function(ans){
-        console.log('count',count);
+        console.log('count',count_num);
         console.log('ans ',ans);
         if(ans=="a"){
-            sum = sum + 0;
+            sum_num = sum_num + 0;
         }
         else if(ans=="b"){
-            sum = sum + 1;
+            sum_num = sum_num + 1;
         }
         else if(ans=="c"){
-            sum = sum + 2;
+            sum_num = sum_num + 2;
         }
         else if(ans=="d"){
-            sum = sum + 3;
+            sum_num = sum_num + 3;
         }
         else {
-            sum = sum + 4;
+            sum_num = sum_num + 4;
         }
-        console.log('sum ',sum);
-        count = count + 1;
-        if(count==24){
+        console.log('sum ',sum_num);
+        count_num = count_num + 1;
+        if(count_num==24){
             $scope.buttonname = 'Submit';
             $timeout(function(){
-                $scope.question = answ[count].q;
-                $scope.qn = answ[count].id;
+                $scope.question = answ[count_num].q;
+                $scope.qn = answ[count_num].id;
             },80);   
         }
-        else if(count>=25){
-            var ak='';
-            if(sum<=30){
-                ak= "nd";
+        else if(count_num>=25){
+            var ak_str='';
+            if(sum_num<=30){
+                ak_str= "nd";
             }
-            else if((sum>30)&&(sum<=60)){
-                ak = "md";
+            else if((sum_num>30)&&(sum_num<=60)){
+                ak_str = "md";
             }
             else{
-                ak = "sd";
+                ak_str = "sd";
             }
             $http({
                 url: 'http://localhost:8080/qr',
                 method: 'POST',
                 data: {
-                    email : objUd.email,
-                    result : ak,
+                    email : ud_obj.email,
+                    result : ak_str,
                     s1 : "dummy",
                     s2 : "dummy",
                 }
@@ -220,15 +242,21 @@ app.controller('QuizCtrl', function($scope, $http, $rootScope, $timeout,$locatio
         }
         else{
             $timeout(function(){
-                $scope.question = answ[count].q;
-                $scope.qn = answ[count].id;
+                $scope.question = answ[count_num].q;
+                $scope.qn = answ[count_num].id;
                 $scope.ki = true;
             },80);   
         }
     };
 });
-app.controller('ActivityCtrl', function($scope, $http){
+app.controller('ActivityCtrl', function($scope, $http, $rootScope){
     console.log('entered activity page');
+    if($rootScope.qw == false || $rootScope.k == false){
+        $scope.activity = false;
+    }
+    else {
+        $scope.activity = true;
+    }
 });
 app.controller('NotificationCtrl', function($scope, $http){
     console.log('entered notification page');
@@ -237,11 +265,14 @@ app.controller('NotificationCtrl', function($scope, $http){
 app.controller('MainCtrl', function($scope, $state, $rootScope, $timeout){
     $scope.logout = function(){
         console.log("logout called");
-        objUd= null;
+        ud_obj= null;
         //localStorage.removeItem('http://127.0.0.1:8080-jwt');
             console.log("logged out");
             $timeout(function(){
                 $rootScope.loggedIn = false;
+                $rootScope.fq = true;
+                $rootScope.qw == true;
+                $rootScope.k = false;
                 $state.go('home');
             },500);
     }
@@ -258,9 +289,9 @@ app.controller('LoginCtrl', function($scope, $http, $location, $state, $timeout,
             data: $scope.user
         }).then(function(httpResponse){
             console.log(httpResponse);
-            objUd = httpResponse.data;
-            console.log(objUd);
-            console.log(objUd.email);
+            ud_obj = httpResponse.data;
+            console.log(ud_obj);
+            console.log(ud_obj.email);
             /*var string = httpResponse.data;
             string = string.split(" ");
             var stringArray = new Array();
