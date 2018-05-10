@@ -88,7 +88,8 @@ app.post('/loginuser', function(req, res, next){
     if(results.length >0){
       if(results[0].password == password){
         console.log('The solution is: ', results);
-        return res.send('Ok'+' '+results[0].actype+' '+results[0].fname+' '+results[0].email+' '+results[0].mobileno);
+        return res.send(results[0]);
+        //return res.send('Ok'+' '+results[0].actype+' '+results[0].fname+' '+results[0].email+' '+results[0].mobileno);
       }
       else{
         console.log("wrong pasword");
@@ -102,26 +103,51 @@ app.post('/loginuser', function(req, res, next){
   }
   });
 });
+
 app.post('/registercheck', function(req, res, next){
-  var e= req.body.email;
+  var email= req.body.email;
   var mb = req.body.mobileno;
   console.log('Checking email and phone for new Registration', req.body);
-  var q = connection.query('SELECT * FROM users WHERE email = ?',[e], function (err, results, fields) {
+  var a = connection.query('SELECT * FROM users WHERE email = ?',[email], function (err, results, fields) {
     if(err){
-      console.error(err);
+      console.error('err1');
       return res.send(err);
     }
     else {
       if(results.length >0){
-        return res.send('DE');
-        
+        var b = connection.query('SELECT * FROM users WHERE mobileno = ?',[mb], function (err, results, fields) {
+          if(err){
+            console.error('err2');
+            return res.send(err);
+          }
+          else {
+            if(results.length >0){
+              return res.send("dmde");
+            }
+            else { 
+              return res.send("de");
+            }
+          }
+        });
       }
       else {
-        return res.send('Ok'); 
+        var c = connection.query('SELECT * FROM users WHERE mobileno = ?',[mb], function (err, results, fields) {
+          if(err){
+            console.error('err3');
+            return res.send(err);
+          }
+          else {
+            if(results.length >0){
+              return res.send("dm");
+            }
+            else { 
+              return res.send("ok");
+            }
+          }
+        });
       }
     }
   });
-  console.log(q);
 });
 app.get('/getques', function(req, res, next){
   connection.query("SELECT * from ques",function(err, results, fields){
@@ -132,6 +158,74 @@ app.get('/getques', function(req, res, next){
       return res.send(results);
     }
   });
+});
+app.post('/quizcheck', function(req, res, next){
+  console.log("quiz home current status");
+  var e = req.body.email;
+  connection.query('SELECT * FROM tquiz WHERE email = ?',[e], function (err, results, fields) {
+    if (err) {
+      console.log("error ocurred",err);
+      return res.send(err);
+    }else{
+      if(results.length >0){
+        console.log('The solution is: ', results[0]);
+        return res.send(results[0]);
+      }
+      else{
+        console.log("Quiz not attempted yet");
+        return res.send('no');
+      }
+    }
+    });
+});
+app.post('/qr', function(req, res, next){
+  console.log("quiz update status");
+  var e = req.body.email;
+  var r = req.body.result;
+  if(r == "nd"){
+    req.body.s1 = "No Depression.";
+    req.body.s2 = "You do not need any treatment.";
+  }
+  else if(r == "md"){
+    req.body.s1 = "Moderate Depression.";
+    req.body.s2 = "You can consult Counsellor to make sure you are fine.";
+  }
+  else if(r == "sd"){
+    req.body.s1 = "Severe Depression.";
+    req.body.s2 = "You must immediately consult a Counsellor and take part in activity.";
+  }
+  var cope = req.body;
+  var a = req.body.s1;
+  var b = req.body.s2;
+  connection.query('SELECT * FROM tquiz WHERE email = ?',[e], function (err, results, fields) {
+    if (err) {
+      console.log("error ocurred",err);
+      return res.send(err);
+    }else{
+      if(results.length >0){
+          connection.query('UPDATE tquiz set result = ?, s1 = ?, s2 = ? where email = ? ',[r,a,b,e], function (err,results) {
+          if (err) {
+            console.error('err1');
+            return res.send(err);
+          } else {
+            return res.send('update');    
+          }
+        });
+        /*console.log('update failed');
+        return res.send('update');*/
+      }
+      else{
+        connection.query('insert into tquiz set ?', cope, function (err, result) {
+          if (err) {
+            console.error('err2');
+            return res.send(err);
+          } else {
+            return res.send('insert');    
+          }
+        });
+      }
+    }
+    });
 });
 app.listen(8080);
 /*var router = express.Router();
@@ -145,4 +239,18 @@ router.get('/', function(req, res) {
 router.post('/register',login.register);
 router.post('/login',login.login)
 app.use('/api', router);
-app.listen(5000);*/
+app.listen(5000);
+
+            else if(httpResponse.data.result == "md"){
+                $scope.s1 = "Moderate Depression.";
+                $scope.s2 = "You can consult Counsellor to make sure you are fine.";
+                $scope.s3 = true;
+                $rootScope.qw= true;
+            }
+            else if(httpResponse.data.result == "sd"){
+                $scope.s1 = "Severe Depression";
+                $scope.s2 = "You must immediately consult a Counsellor and take part in activity.";
+                $scope.s3 = true;
+                $rootScope.qw= true;
+            }
+*/

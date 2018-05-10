@@ -65,7 +65,6 @@
     padding: 0px;
 }
 .quizpage{
-    text-align: center;
     margin-top: 15px;
     margin-left: 10px;
     margin-right: 10px;
@@ -74,4 +73,10 @@
     border-style: double;
     border-width: 5px;
     border-color: grey;
+}
+.tc{
+    text-align: center;
+}
+.ht{
+    height: 400px;
 }

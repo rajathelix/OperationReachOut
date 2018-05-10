@@ -2,9 +2,17 @@
 <div ng-show="qf" ng-include="'structure/question.html'"></div>
 <div ng-show="qh" class="col-xs-12 col-sm-10 col-md-10 col-sm-offset-1 col-md-offset-1">
     <div class="row quizpage">
-        <div class="col-xs-12 col-sm-5 col-md-5 well">
-            <h2 class="blue s28">Take Quiz</h2>
+        <div class="col-xs-12 col-sm-5 col-md-5 well ht">
+            <h2 class="blue s28 tc">Take Quiz</h2>
             <hr/>
+            <br>
+            <p class="s18"> This Quiz is a kind of Psychometric evaluation, which will judge you based on the answers you provide.
+                <br>
+                Give this quiz to find about results. And accordingly we will show you the way to improve yourself.
+                <br>
+                <br>
+                <div class="s16 tc">Click the button below to start the quiz.</div>
+            </p>
             <br>
             <form name="sqf" ng-submit="startQ()">
                 <div class="col-xs-10 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 col-xs-offset-1">
@@ -15,11 +23,43 @@
             </form>
         </div>
         <div class="col-sm-2 col-md-2"></div>
-        <div class="col-xs-12 col-sm-5 col-md-5 well">
-            <h2 class="blue s28">Current Status</h2>
+        <div class="col-xs-12 col-sm-5 col-md-5 well ht">
+            <h2 class="blue s28 tc">Current Status</h2>
             <hr/>
             <br>
-            <div>{{custs}}</div>
+            <div class="s18 tc">{{custs}}</div>
+            <div class="s16">
+                {{s1}}
+                <br>
+                {{s2}}
+                <br>
+                <div ng-show="s3">Try our chat service to contact a Counsellor.</div>
+                <div ng-show="s4">So our chat and activity portal has been made unavilable for you.</div>
+            </div>
         </div>
+    </div>
+</div>
+<div ng-show="suc" class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+    <div class="pad"></div>
+    <div class="row">
+        <div class="col-sm-1 col-md-2"></div>
+        <div class="col-xs-12 col-sm-10 col-md-8 mess blue">
+            Quiz Submitted Successfully
+            <br>
+            Go To <a class="red" href="#/">Home</a>.
+        </div>
+        <div class="col-sm-1 col-md-2"></div>
+    </div>
+</div>
+<div ng-show="fai" class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+    <div class="pad"></div>
+    <div class="row">
+        <div class="col-sm-1 col-md-2"></div>
+        <div class="col-xs-12 col-sm-10 col-md-8 mess blue">
+            Quiz Submission Unuccessful
+            <br>
+            Go To <a class="red" href="#/">Home</a>.
+        </div>
+        <div class="col-sm-1 col-md-2"></div>
     </div>
 </div>

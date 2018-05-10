@@ -16,9 +16,9 @@
                       <li ui-sref-active="active" ng-if="!loggedIn"><a ui-sref="login">Login</a></li>
                       <li ui-sref-active="active" ng-if="!loggedIn"><a ui-sref="signup">Registration</a></li>
                       <li ui-sref-active="active" ng-if="loggedIn && k"><a ui-sref="quiz">Quiz</a></li>
-                      <li ui-sref-active="active" ng-if="loggedIn"><a ui-sref="chat">Chat</a></li>
+                      <li ui-sref-active="active" ng-if="loggedIn && qw"><a ui-sref="chat">Chat</a></li>
                       <li ui-sref-active="active" ng-if="loggedIn"><a ui-sref="notification">Notification</a></li>
-                      <li ui-sref-active="active" ng-if="loggedIn && k"><a ui-sref="acti">Activities</a></li>
+                      <li ui-sref-active="active" ng-if="loggedIn && k && qw"><a ui-sref="acti">Activities</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" ng-if="loggedIn">
                       <li class="dropdown" ng-if="loggedIn">
