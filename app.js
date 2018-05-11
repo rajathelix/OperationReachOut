@@ -9,7 +9,7 @@ app.run(function($rootScope,$state){
     //$state.go('home');
 });
 app.config(function($stateProvider, $urlRouterProvider){
-    localStorage.removeItem('http://127.0.0.1:8080-jwt');
+    //localStorage.removeItem('http://127.0.0.1:8080-jwt');
     $stateProvider
         .state('home',{
             url:'/',
@@ -53,9 +53,20 @@ app.config(function($stateProvider, $urlRouterProvider){
 app.controller('HomeCtrl', function($scope,$rootScope, $http){
     console.log('entered Home page');
     $rootScope.fq = true;
+    $scope.small = true;
+    $scope.big = false;
+    $scope.toBig = function(){
+        $scope.small = false;
+        $scope.big = true;
+    };
+    $scope.toSmall = function(){
+        $scope.small = true;
+        $scope.big = false;
+    };
+    
     if($rootScope.loggedIn == true && $rootScope.k == true){
         $http({
-            url: 'http://localhost:8080/quizcheck',
+            url: 'http://192.168.123.7:8080/quizcheck',
             method: 'POST',
             data : ud_obj
         }).then(function(httpResponse){
@@ -80,14 +91,60 @@ app.controller('HomeCtrl', function($scope,$rootScope, $http){
     }
 });
 
-app.controller('ChatCtrl', function($scope, $http){
+app.controller('ChatCtrl', function($scope, $http, $rootScope){
     console.log('entered Chat page');
-    $http({
-        url: 'http://localhost:8080/logi',
-        method: 'GET',
-    }).then(function(httpResponse){
-        console.log("happy");
-    });
+    if($rootScope.qw == false || $rootScope.loggedIn == false){
+        $scope.chaton = false;
+    }
+    else {
+        $scope.chaton = true;
+        console.log("logged in");
+        if(ud_obj.actype == "v"){
+            console.log("depressed");
+            $scope.whenv = true;
+            $scope.whenc = false;
+            $http({
+                url: 'http://192.168.123.7:8080/listc',
+                method: 'GET'
+            }).then(function(httpResponse){
+                if(httpResponse.data == 'none'){
+                    $scope.moody = true;
+                    console.log("none");
+                }
+                else {
+                    console.log("a list");
+                    $scope.mood = true;
+                    $scope.records = httpResponse.data;
+                }
+            },function myError(response) {
+            });
+        }
+        else if(ud_obj.actype == "c"){
+            $scope.whenc = true;
+            $scope.whenv = false;
+        }
+        else {
+
+        }
+    }
+    $scope.onc = true;
+    $scope.details = function(a){
+        $http({
+            url: 'http://192.168.123.7:8080/pdet',
+            method: 'POST',
+            data : {
+                email : a
+            }
+        }).then(function(httpResponse){
+            $scope.clck = true;
+            $scope.onc = false;
+            $scope.name = httpResponse.data.fname + " " + httpResponse.data.lname;
+            $scope.ema = httpResponse.data.email;
+            $scope.mno = httpResponse.data.mobileno;
+            $scope.ads = httpResponse.data.address;
+        },function myError(response) {
+        });   
+    }
 });
 
 app.controller('QuizCtrl', function($scope, $http, $rootScope, $timeout,$location){
@@ -103,7 +160,7 @@ app.controller('QuizCtrl', function($scope, $http, $rootScope, $timeout,$locatio
             $scope.s3 = false;
             $scope.s5 = false;
             $http({
-                url: 'http://localhost:8080/quizcheck',
+                url: 'http://192.168.123.7:8080/quizcheck',
                 method: 'POST',
                 data : ud_obj
             }).then(function(httpResponse){
@@ -162,12 +219,12 @@ app.controller('QuizCtrl', function($scope, $http, $rootScope, $timeout,$locatio
     $scope.squiz = function(){
         $timeout(function(){
             $http({
-                url : 'http://localhost:8080/getques',
+                url : 'http://192.168.123.7:8080/getques',
                 method : "GET"
             }).then(function mySuccess(response) {
                 //console.log("next clicked")
                 $rootScope.fq = false;
-                console.log(response.data[0].q);
+                //console.log(response.data[0].q);
                 $scope.inst = false;
                 $scope.qf = true;
                 answ = response.data;
@@ -179,8 +236,8 @@ app.controller('QuizCtrl', function($scope, $http, $rootScope, $timeout,$locatio
     },800);
     };
     $scope.next = function(ans){
-        console.log('count',count_num);
-        console.log('ans ',ans);
+        //console.log('count',count_num);
+        //console.log('ans ',ans);
         if(ans=="a"){
             sum_num = sum_num + 0;
         }
@@ -196,7 +253,7 @@ app.controller('QuizCtrl', function($scope, $http, $rootScope, $timeout,$locatio
         else {
             sum_num = sum_num + 4;
         }
-        console.log('sum ',sum_num);
+        //console.log('sum ',sum_num);
         count_num = count_num + 1;
         if(count_num==24){
             $scope.buttonname = 'Submit';
@@ -217,13 +274,14 @@ app.controller('QuizCtrl', function($scope, $http, $rootScope, $timeout,$locatio
                 ak_str = "sd";
             }
             $http({
-                url: 'http://localhost:8080/qr',
+                url: 'http://192.168.123.7:8080/qr',
                 method: 'POST',
                 data: {
                     email : ud_obj.email,
                     result : ak_str,
                     s1 : "dummy",
                     s2 : "dummy",
+                    noti : "yes"
                 }
             }).then(function (httpResponse) {
                 if(httpResponse.data=="update" || httpResponse.data=="insert"){
@@ -258,8 +316,59 @@ app.controller('ActivityCtrl', function($scope, $http, $rootScope){
         $scope.activity = true;
     }
 });
-app.controller('NotificationCtrl', function($scope, $http){
+app.controller('NotificationCtrl', function($scope, $http, $rootScope){
     console.log('entered notification page');
+    if($rootScope.loggedIn == true){
+        $scope.er = false;
+        if(ud_obj.actype == "v")
+        {
+            $scope.qn = true;
+            $scope.cn = true;
+            $http({
+                url: 'http://192.168.123.7:8080/quizcheck',
+                method: 'POST',
+                data : ud_obj
+            }).then(function(httpResponse){
+                console.log("current status load");
+                if(httpResponse.data == "no" || httpResponse.data.noti == "no"){
+                    $scope.gexam= false;
+                    $scope.nn = true;
+                }
+                else{
+                    $scope.result_quiz = httpResponse.data.s1;
+                    $scope.gexam = true;
+                    $scope.nn = false;
+                }
+            },function myError(response) {
+                console.log("Error loading user data.")
+                $scope.er = true;
+            });
+            $scope.cnn = true;
+        }
+        else if(ud_obj.actype == "c"){
+            $scope.qn = false;
+            $scope.cn = true;
+            $scope.cnn = true;
+        }
+    }
+    else {
+        $scope.qn = false;
+        $scope.cn = false;
+    }
+    $scope.readit = function(){
+        $http({
+            url: 'http://192.168.123.7:8080/qrm',
+            method: 'POST',
+            data : ud_obj
+        }).then(function(httpResponse){
+            if(httpResponse.data == "ok"){
+                $scope.nn = true;
+                $scope.gexam = false;
+            }
+        }, function myError(response){
+
+        });
+    };
 });
 
 app.controller('MainCtrl', function($scope, $state, $rootScope, $timeout){
@@ -284,13 +393,13 @@ app.controller('LoginCtrl', function($scope, $http, $location, $state, $timeout,
     $scope.login = function(){
         console.log('Login clicked');
         $http({
-            url: 'http://localhost:8080/loginuser',
+            url: 'http://192.168.123.7:8080/loginuser',
             method: 'POST',
             data: $scope.user
         }).then(function(httpResponse){
             console.log(httpResponse);
             ud_obj = httpResponse.data;
-            console.log(ud_obj);
+            //console.log(ud_obj);
             console.log(ud_obj.email);
             /*var string = httpResponse.data;
             string = string.split(" ");
@@ -314,9 +423,12 @@ app.controller('LoginCtrl', function($scope, $http, $location, $state, $timeout,
                     {
                         $rootScope.k = false;
                     }
+                    console.log('k ',$rootScope.k);
+                    console.log('qw ',$rootScope.qw);
+
                     $state.go('home');
                 },2000);
-                console.log(httpResponse.data.fname);
+                //console.log(httpResponse.data.fname);
             }
             else if(httpResponse.data=="EPDM")
             {
@@ -363,11 +475,11 @@ app.controller('SignUpCtrl', function($scope, $http) {
     $scope.myFunc = function() {
         console.log("entries are valid");
         $http({
-            url: 'http://localhost:8080/registercheck',
+            url: 'http://192.168.123.7:8080/registercheck',
             method: 'POST',
             data: $scope.newUser
         }).then(function(httpResponse){
-            console.log('r :',httpResponse);
+            //console.log('r :',httpResponse);
             if(httpResponse.data == "ok"){
                 $scope.two = true;
                 $scope.one = false;
@@ -387,6 +499,7 @@ app.controller('SignUpCtrl', function($scope, $http) {
                 $scope.noti = "Duplicate Mobile";
             }
         },function myError(response) {
+            $scope.three = true;
             $scope.three ="Server Error. Try again.";
         });
         /*
@@ -398,11 +511,11 @@ app.controller('SignUpCtrl', function($scope, $http) {
         console.log('clicked submit');
         $scope.statusMsg = 'Communicating with the server...';
         $http({
-            url: 'http://localhost:8080/register',
+            url: 'http://192.168.123.7:8080/register',
             method: 'POST',
             data: $scope.newUser
         }).then(function (httpResponse) {
-            console.log('response:', httpResponse);
+            //console.log('response:', httpResponse);
             if(httpResponse.data=="Ok")
             {
                 console.log('registration successful');

@@ -1,39 +1,3 @@
-/*var mysql = require('mysql');
-
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "hello",
-  database: "mysql"
-});
-
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-  var sql = "INSERT INTO users (id, title) VALUES (2, 'Highway')";
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("table created");
-  });
-})
-
-var express    = require("express");
- var mysql      = require('mysql');
- var connection = mysql.createConnection({
-   host     : 'localhost',
-   user     : 'root',
-   password : 'hello',
-   database : 'mysql'
- });
- var app = express();
- 
- connection.connect(function(err){
- if(!err) {
-     console.log("Database is connected ... \n\n");  
- } else {
-     console.log("Error connecting database ... \n\n");  
- }
- });*/
 var express    = require("express");
 var login = require('./routes/loginroutes');
 var bodyParser = require('body-parser');
@@ -197,13 +161,14 @@ app.post('/qr', function(req, res, next){
   var cope_obj = req.body;
   var a_str = req.body.s1;
   var b_str = req.body.s2;
+  var c_str = req.body.noti;
   connection.query('SELECT * FROM tquiz WHERE email = ?',[e_str], function (err, results, fields) {
     if (err) {
       console.log("error ocurred",err);
       return res.send(err);
     }else{
       if(results.length >0){
-          connection.query('UPDATE tquiz set result = ?, s1 = ?, s2 = ? where email = ? ',[r_str,a_str,b_str,e_str], function (err,results) {
+          connection.query('UPDATE tquiz set result = ?, s1 = ?, s2 = ?, noti = ? where email = ? ',[r_str,a_str,b_str,c_str,e_str], function (err,results) {
           if (err) {
             console.error('err1');
             return res.send(err);
@@ -227,17 +192,47 @@ app.post('/qr', function(req, res, next){
     }
     });
 });
-app.listen(8080);
-/*var router = express.Router();
-
-// test route
-router.get('/', function(req, res) {
-    res.json({ message: 'welcome to our upload module apis' });
+app.post('/qrm', function(req, res, next){
+  console.log("quiz notification current status");
+  var e_str = req.body.email;
+  var a_str = "no";
+  connection.query('UPDATE tquiz set noti = ? where email = ? ',[a_str,e_str], function (err, results, fields) {
+    if (err) {
+      console.log("error ocurred",err);
+      return res.send(err);
+    }else{
+      return res.send('ok');
+    }
+    });
+});
+app.get('/listc', function(req, res, next){
+  var a_str = "c";
+  console.log("chat list counsellors");
+  connection.query("SELECT * from users where actype = ? ",[a_str],function(err, results, fields){
+    if(err){
+      return res.send(err);
+    }
+    else {
+      if(results.length >0){
+        return res.send(results);
+      }
+      else {
+        return res.send('none');
+      }
+    }
+  });
+});
+app.post('/pdet', function(req, res, next){
+  console.log("Person Details");
+  var e_str = req.body.email;
+  connection.query('SELECT * from users where email = ? ',[e_str], function (err, results, fields) {
+    if (err) {
+      console.log("error ocurred",err);
+      return res.send(err);
+    }else{
+      return res.send(results[0]);
+    }
+    });
 });
 
-//route to handle user registration
-router.post('/register',login.register);
-router.post('/login',login.login)
-app.use('/api', router);
-app.listen(5000);
-*/
+app.listen(8080);

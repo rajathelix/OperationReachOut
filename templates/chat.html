@@ -1,1 +1,31 @@
-<div class="s24 blue">Service will soon be available</div>
+<div ng-show="chaton" class="col-xs-12 col-sm-10 col-md-10 col-sm-offset-1 col-md-offset-1">
+        <div class="row quizpage">
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <h2 ng-show="whenv" class="blue s28 tc">List of Counsellors</h2>
+                <h2 ng-show="whenc" class="blue s28 tc">Request from Vulnerable</h2>
+                <div ng-show="mood" class="well">
+                    <h4 ng-repeat="x in records">
+                        <a href="" ng-click="details(x.email)">{{x.fname + " " + x.lname}}</a>
+                        <br>
+                    </h4>
+                </div>
+                <div ng-show="moody" class="well s16">Not Available</div>
+            </div>
+            <div class="col-sm-2 col-md-2"></div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <h2 ng-show="whenv" class="blue s28 tc">Counsellor's Details</h2>
+                <h2 ng-show="whenc" class="blue s28 tc">Vulnerable's Details</h2>
+                <br>
+                <div ng-show="clck" class="s20 well">
+                    Full Name : {{name}}
+                    <br>
+                    Email : {{ema}}
+                    <br>
+                    Mobile No : {{mno}}
+                    <br>
+                    Address : {{ads}}
+                </div>
+                <div ng-show="onc" class="s16 well">Click a Name from list to view his/her details.</div>
+            </div>
+        </div>
+    </div>

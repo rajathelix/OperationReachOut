@@ -1,0 +1,24 @@
+<div class="col-xs-12 col-sm-10 col-md-10 col-sm-offset-1 col-md-offset-1">
+    <div ng-show="qn">
+        <br>
+        <span class="s28">Quiz Notification</span>
+        <br>
+        <div ng-show="gexam" class="well">
+            <span class="s20">{{result_quiz}} </span> &nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="rt"><a ng-click="readit()" class="btn btn-primary btn-lg" role="button">Done</a></span>
+            <br>
+            <span class="s18">See The quiz page for detailed report</span>
+        </div>
+        <div ng-show="nn" class="well s18">No new notification</div>    
+    </div>
+    <div ng-show="cn">
+        <br>
+        <span class="s28">Chat Notifications</span>
+        <div ng-show="cnn" class="well s18">No new notifications.</div>
+    </div>
+</div>
+<div ng-show="er" class="s20 blue">
+    ERROR IN LOADING PAGE
+    <br>
+    Try switching between pages.
+</div>

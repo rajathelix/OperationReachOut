@@ -1,7 +1,33 @@
-<div class="jumbotron">
+<div ng-show="small" class="jumbotron">
+    <center>
+        <div class="blue"><h1 >Operation ReachOut</h1></div>
+        <p class="s24">An Initiative to Help Prevent Suicide</p>
+        <p><a ng-click="toBig()" class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+    </center>
+</div>
+<div ng-show="big" class="jumbotron">
     <center>
         <div class="blue"><h1 >Operation ReachOut</h1></div>
         <p>An Initiative to Help Prevent Suicide</p>
-        <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
     </center>
+        <br>
+        <br>
+        <hr/>
+        <div class="row s20">
+            <div class="col-xs-12 col-sm-5 col-md-4"><i>I have Depression. But I prefer to say
+                 "I battle" depression, instead of "I suffer" with it.
+                 Because depression hits, but I hit it back. Battle is on.
+                <br><center><strong> - Anonymous </strong></center></i>
+            </div>
+            <div class="col-sm-2 col-md-4"></div>
+            <div class="col-xs-12 col-sm-5 col-md-4"><i>Having anxiety and depression is like being
+                 scared and tired at the same time. It's the fear of failure, but no urge to be productive. 
+                 It's wanting friends, but hate socializing. It's wanting to be alone, but not lonely. 
+               <br><center><strong> - Anonymous </strong></center></i>
+            </div>
+        </div>
+        <hr/>
+        <br>
+        <br>
+        <center><p><a ng-click="toSmall()" class="btn btn-primary btn-lg" role="button">Read less</a></p></center>
 </div>
