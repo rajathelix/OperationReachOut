@@ -222,6 +222,23 @@ app.get('/listc', function(req, res, next){
     }
   });
 });
+app.post('/listv', function(req, res, next){
+  var e_str = req.body.email;
+  console.log("chat list counsellors");
+  connection.query("SELECT * from req where emailc = ? ",[e_str],function(err, results, fields){
+    if(err){
+      return res.send(err);
+    }
+    else {
+      if(results.length >0){
+        return res.send(results);
+      }
+      else {
+        return res.send('none');
+      }
+    }
+  });
+});
 app.post('/pdet', function(req, res, next){
   console.log("Person Details");
   var e_str = req.body.email;
@@ -233,6 +250,32 @@ app.post('/pdet', function(req, res, next){
       return res.send(results[0]);
     }
     });
+});
+app.post('/sendrq', function(req, res, next){
+  console.log("Request");
+  var cope_obj = req.body;
+  var v_str = req.body.emailv;
+  var c_str = req.body.emailc;
+  connection.query('select * from req where emailv = ? and emailc = ?',[v_str,c_str], function (err, results, fields) {
+    if (err) {
+      console.log("error ocurred",err);
+      return res.send(err);
+    }else{
+      if(results.length>0){
+        return res.send('already');
+      }
+      else {
+        connection.query('insert into req set ?',cope_obj, function (err, results, fields) {
+          if (err) {
+            console.log("error ocurred",err);
+            return res.send(err);
+          }else{
+            return res.send('ok');
+          }
+          });
+      }
+    }
+  });
 });
 
 app.listen(8080);

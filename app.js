@@ -66,7 +66,7 @@ app.controller('HomeCtrl', function($scope,$rootScope, $http){
     
     if($rootScope.loggedIn == true && $rootScope.k == true){
         $http({
-            url: 'http://192.168.123.7:8080/quizcheck',
+            url: 'http://192.168.43.30:8080/quizcheck',
             method: 'POST',
             data : ud_obj
         }).then(function(httpResponse){
@@ -104,7 +104,7 @@ app.controller('ChatCtrl', function($scope, $http, $rootScope){
             $scope.whenv = true;
             $scope.whenc = false;
             $http({
-                url: 'http://192.168.123.7:8080/listc',
+                url: 'http://192.168.43.30:8080/listc',
                 method: 'GET'
             }).then(function(httpResponse){
                 if(httpResponse.data == 'none'){
@@ -122,6 +122,24 @@ app.controller('ChatCtrl', function($scope, $http, $rootScope){
         else if(ud_obj.actype == "c"){
             $scope.whenc = true;
             $scope.whenv = false;
+            $http({
+                url: 'http://192.168.43.30:8080/listv',
+                method: 'POST',
+                data : {
+                    email: ud_obj.email
+                }
+            }).then(function(httpResponse){
+                if(httpResponse.data == 'none'){
+                    $scope.moody = true;
+                    console.log("none");
+                }
+                else {
+                    console.log("a list");
+                    $scope.mood = true;
+                    $scope.record = httpResponse.data;
+                }
+            },function myError(response) {
+            });
         }
         else {
 
@@ -130,7 +148,7 @@ app.controller('ChatCtrl', function($scope, $http, $rootScope){
     $scope.onc = true;
     $scope.details = function(a){
         $http({
-            url: 'http://192.168.123.7:8080/pdet',
+            url: 'http://192.168.43.30:8080/pdet',
             method: 'POST',
             data : {
                 email : a
@@ -144,7 +162,32 @@ app.controller('ChatCtrl', function($scope, $http, $rootScope){
             $scope.ads = httpResponse.data.address;
         },function myError(response) {
         });   
-    }
+    };
+    $scope.sendr = function(a){
+        console.log(a);
+        $http({
+            url: 'http://192.168.43.30:8080/sendrq',
+            method: 'POST',
+            data : {
+                emailv : ud_obj.email,
+                emailc : a,
+                name : ud_obj.fname + " " + ud_obj.lname,
+                mbn : ud_obj.mobileno,
+                address : ud_obj.address,
+                seen : "yes"
+            }
+        }).then(function(httpResponse){
+            if(httpResponse.data == 'ok'){
+                alert("Request Sent");
+            }
+            else {
+                alert("Request already Sent");    
+            }
+        },function myError(response) {
+            alert("Request not Sent");
+        });   
+    };
+    
 });
 
 app.controller('QuizCtrl', function($scope, $http, $rootScope, $timeout,$location){
@@ -160,7 +203,7 @@ app.controller('QuizCtrl', function($scope, $http, $rootScope, $timeout,$locatio
             $scope.s3 = false;
             $scope.s5 = false;
             $http({
-                url: 'http://192.168.123.7:8080/quizcheck',
+                url: 'http://192.168.43.30:8080/quizcheck',
                 method: 'POST',
                 data : ud_obj
             }).then(function(httpResponse){
@@ -219,7 +262,7 @@ app.controller('QuizCtrl', function($scope, $http, $rootScope, $timeout,$locatio
     $scope.squiz = function(){
         $timeout(function(){
             $http({
-                url : 'http://192.168.123.7:8080/getques',
+                url : 'http://192.168.43.30:8080/getques',
                 method : "GET"
             }).then(function mySuccess(response) {
                 //console.log("next clicked")
@@ -274,7 +317,7 @@ app.controller('QuizCtrl', function($scope, $http, $rootScope, $timeout,$locatio
                 ak_str = "sd";
             }
             $http({
-                url: 'http://192.168.123.7:8080/qr',
+                url: 'http://192.168.43.30:8080/qr',
                 method: 'POST',
                 data: {
                     email : ud_obj.email,
@@ -325,7 +368,7 @@ app.controller('NotificationCtrl', function($scope, $http, $rootScope){
             $scope.qn = true;
             $scope.cn = true;
             $http({
-                url: 'http://192.168.123.7:8080/quizcheck',
+                url: 'http://192.168.43.30:8080/quizcheck',
                 method: 'POST',
                 data : ud_obj
             }).then(function(httpResponse){
@@ -357,7 +400,7 @@ app.controller('NotificationCtrl', function($scope, $http, $rootScope){
     }
     $scope.readit = function(){
         $http({
-            url: 'http://192.168.123.7:8080/qrm',
+            url: 'http://192.168.43.30:8080/qrm',
             method: 'POST',
             data : ud_obj
         }).then(function(httpResponse){
@@ -393,7 +436,7 @@ app.controller('LoginCtrl', function($scope, $http, $location, $state, $timeout,
     $scope.login = function(){
         console.log('Login clicked');
         $http({
-            url: 'http://192.168.123.7:8080/loginuser',
+            url: 'http://192.168.43.30:8080/loginuser',
             method: 'POST',
             data: $scope.user
         }).then(function(httpResponse){
@@ -475,7 +518,7 @@ app.controller('SignUpCtrl', function($scope, $http) {
     $scope.myFunc = function() {
         console.log("entries are valid");
         $http({
-            url: 'http://192.168.123.7:8080/registercheck',
+            url: 'http://192.168.43.30:8080/registercheck',
             method: 'POST',
             data: $scope.newUser
         }).then(function(httpResponse){
@@ -511,7 +554,7 @@ app.controller('SignUpCtrl', function($scope, $http) {
         console.log('clicked submit');
         $scope.statusMsg = 'Communicating with the server...';
         $http({
-            url: 'http://192.168.123.7:8080/register',
+            url: 'http://192.168.43.30:8080/register',
             method: 'POST',
             data: $scope.newUser
         }).then(function (httpResponse) {

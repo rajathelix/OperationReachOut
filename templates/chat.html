@@ -3,11 +3,16 @@
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <h2 ng-show="whenv" class="blue s28 tc">List of Counsellors</h2>
                 <h2 ng-show="whenc" class="blue s28 tc">Request from Vulnerable</h2>
+                <br>
                 <div ng-show="mood" class="well">
-                    <h4 ng-repeat="x in records">
-                        <a href="" ng-click="details(x.email)">{{x.fname + " " + x.lname}}</a>
+                    <h4 ng-show="whenv" ng-repeat="x in records">
+                        <a  href="" ng-click="details(x.email)">{{x.fname + " " + x.lname}}</a>
                         <br>
                     </h4>
+                    <h4 ng-show="whenc" ng-repeat="x in record">
+                            <a href="" ng-click="details(x.emailv)">{{x.name}}</a>
+                            <br>
+                        </h4>
                 </div>
                 <div ng-show="moody" class="well s16">Not Available</div>
             </div>
@@ -17,6 +22,7 @@
                 <h2 ng-show="whenc" class="blue s28 tc">Vulnerable's Details</h2>
                 <br>
                 <div ng-show="clck" class="s20 well">
+                    <hr/>
                     Full Name : {{name}}
                     <br>
                     Email : {{ema}}
@@ -24,6 +30,12 @@
                     Mobile No : {{mno}}
                     <br>
                     Address : {{ads}}
+                    <hr/>
+                    <br>
+                    <a ng-show="whenv" ng-click="sendr(ema)" class="btn btn-primary btn-lg" role="button">Send Request</a>
+                    <a ng-show="whenc" ng-click="accr()" class="btn btn-primary btn-lg" role="button">Accept</a>
+                    &nbsp;&nbsp; &nbsp; &nbsp;
+                    <a ng-show="whenc" ng-click="rejr()" class="btn btn-primary btn-lg" role="button">Reject</a>
                 </div>
                 <div ng-show="onc" class="s16 well">Click a Name from list to view his/her details.</div>
             </div>
